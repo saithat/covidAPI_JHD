@@ -2,11 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const rfs = require('rotating-file-stream');
 require('dotenv').config();
 
 // App + PORT + Database URL
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 const CONNECTION_URI = process.env.MONGODB_URI || process.env.DATABASE_URI;
 
