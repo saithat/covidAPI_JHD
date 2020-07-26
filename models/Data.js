@@ -20,7 +20,8 @@ const dataSchema = mongoose.Schema({
   UID: Number,
   ISO3: String,
   Testing_Rate: Double,
-  Hospitalization_Rate: Double
+  Hospitalization_Rate: Double,
+  date: Date
 });
 
 module.exports = mongoose.model('covid-data', dataSchema, 'all');
