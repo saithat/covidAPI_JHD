@@ -34,6 +34,8 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 const covidRoutes = require('./routes/data-routes');
 app.use(covidRoutes);
+const intlRoutes = require('./routes/countries');
+app.use(intlRoutes);
 
 // Connect to MongoDB -- Local Database
 mongoose.connect(
