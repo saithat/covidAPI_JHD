@@ -12,7 +12,7 @@ router.get('/api/all_intl', async (req, res) => {
     }
   });
 */
-  router.get('/api/all_intl/:country?/:province?', async (req, res) => {
+  router.get('/all_intl/:country?/:province?', async (req, res) => {
     try {
       var country = req.params.country.toLowerCase();
       country = country.charAt(0).toUpperCase() + country.slice(1);
@@ -27,7 +27,7 @@ router.get('/api/all_intl', async (req, res) => {
         covidData = await Data.find();
       }else if (country != undefined && province == undefined)
       {
-        covidData = await Data.find({ "Country_Region": country});
+        covidData = await Data.find({ "Country_Region": China});
       }else
       {
         covidData = await Data.find( {$and: [
@@ -40,4 +40,6 @@ router.get('/api/all_intl', async (req, res) => {
     } catch (err) {
       res.json({ message: err });
     }
-  }, () => console.log(red.params.id));
+  });
+
+  module.exports = router;

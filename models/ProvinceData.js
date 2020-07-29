@@ -20,4 +20,4 @@ const dataIntlSchema = mongoose.Schema({
   'Case-Fatality_Ratio': Number,
 });
 
-module.exports = mongoose.model('covid-data', dataIntlSchema, 'all_intl');
+module.exports = mongoose.model('covidIntl', dataIntlSchema, 'all_intl');
