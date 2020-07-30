@@ -14,22 +14,28 @@ router.get('/api/all_intl', async (req, res) => {
 */
   router.get('/all_intl/:country?/:province?', async (req, res) => {
     try {
-      var country = req.params.country.toLowerCase();
-      country = country.charAt(0).toUpperCase() + country.slice(1);
-      country = {"$regex": ".*" + country + ".*" , "$options": "i"};
-      var province = req.params.province.toLowerCase();
-      province = province.charAt(0).toUpperCase() + province.slice(1);
-      province = {"$regex": ".*" + province + ".*" , "$options": "i"};
-
+      var country = req.params.country;
+      var province = req.params.province;
       var covidData;
-      if(country == undefined && province == undefined)
+      if(!country && !province)
       {
         covidData = await Data.find();
-      }else if (country != undefined && province == undefined)
+      }else if (country && !province)
       {
-        covidData = await Data.find({ "Country_Region": China});
+        var country = req.params.country.toLowerCase();
+
+        country = country.charAt(0).toUpperCase() + country.slice(1);
+        country = {"$regex": "^" + country + "$" , "$options": "i"};
+        covidData = await Data.find({ "Country_Region": country});
       }else
       {
+        var country = req.params.country.toLowerCase();
+        var province = req.params.province.toLowerCase();
+        country = country.charAt(0).toUpperCase() + country.slice(1);
+        country = {"$regex": ".*" + country + ".*" , "$options": "i"};
+        province = province.charAt(0).toUpperCase() + province.slice(1);
+        province = {"$regex": ".*" + province + ".*" , "$options": "i"};
+
         covidData = await Data.find( {$and: [
             {"Country_Region": country},
             { "Province_State": province}
